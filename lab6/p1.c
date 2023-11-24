@@ -4,7 +4,7 @@
 
 void* generateFibonacci(void* arg) {
     int n = *((int*)arg);
-    int fib[n];
+    int* fib = (int*)malloc(sizeof(int) * n);
 
     fib[0] = 0;
     fib[1] = 1;
@@ -14,12 +14,9 @@ void* generateFibonacci(void* arg) {
     }
 
     // Create a pointer to the Fibonacci series bcz fib is out of scope
-    int* result = (int*)malloc(sizeof(int) * n);
-    for (int i = 0; i < n; i++) {
-        result[i] = fib[i];
-    }
 
-    pthread_exit((void*)result);
+    return (void*)fib;
+    // pthread_exit((void*)fib); -> you can use the above one
 }
 
 int main(int argc, char const *argv[])
